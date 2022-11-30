@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
 
     // Define constants describing video metadata
     Size resolution(1920, 1080);
-    char* fname = "Output.mp4";
+    char fname[] = "Output.mp4";
     int fps = 24;
 
     // Create a new capture object
@@ -20,6 +20,8 @@ int main(int argc, char** argv) {
     // Checks if the capture object is a connected device camera
     if (cam.isOpened()){
         
+        std::cout << "Cam opened successfully";
+
         // Loop control and counting frames
         int run = 1;
         int f = 0;
@@ -29,7 +31,7 @@ int main(int argc, char** argv) {
 
         while (run){
 
-            // Get the last key pressed
+            // Get the last key pressed, cast to a single char
             char key = (char)waitKey(1);
 
             // Capture the current frame
@@ -44,7 +46,7 @@ int main(int argc, char** argv) {
                 
                 // Increment the frame counter, display on screen
                 f++;                
-                imshow((char*)f, frame);
+                imshow("Live Feed", frame);
             }
             else{
                 run = 0;
@@ -57,7 +59,7 @@ int main(int argc, char** argv) {
     }
 
     else {
-        std::cout << "Error - Cam not opened";
+        std::cout << "Error - Cam could not be opened";
     }
 
     // Release the capture object
